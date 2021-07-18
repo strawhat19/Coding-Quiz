@@ -14,6 +14,25 @@
     --soft: #dcd9d4;
     --gray: #181a1b;
     --silver: #4b5155;
+    --correct: #00cc80;
+    --wrong: #ff172d;
+    --neutral: #00c2ff;
+    --neutralGlass: rgb(0 194 255 / 40%);
+    --neutralDark: #1282a6;
+    --neutralDarkGlass: rgb(18 130 166 / 70%);
+    --silverGlass: rgb(75 81 85 / 85%);
+}
+
+.correct {
+    background: var(--correct);
+}
+
+.wrong {
+    background: var(--wrong);
+}
+
+.neutral {
+    background: var(--neutral);
 }
 
 ::selection {
@@ -22,7 +41,7 @@
 
 body {
     scroll-behavior: smooth;
-    background: var(--silver);
+    background: var(--neutralDark);
     color: white;
     font-family: Noto Sans JP;
     letter-spacing: 0.5px;
@@ -45,13 +64,17 @@ header, footer {
     flex-wrap: wrap;
     font-family: Noto Sans JP;
     font-weight: 300 !important;
+    font-size: 13px;
 }
 
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    /* justify-content: center; */
+}
+
+footer i, footer li, .vertical-sep {
+    color: var(--neutral);
 }
 
 main {
@@ -59,15 +82,49 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(var(--neutralDarkGlass),var(--neutralDarkGlass)),url(/assets/images/Vectorquestion.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 50em;
 }
 
 .contain {
     padding: 3em;
 }
 
-.startText {
+.topbar i {
+    color: var(--neutral);
+}
+
+.quizBox {
     background: black;
     border-radius: 10px;
+}
+
+.quizBoxTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-gap: 45px;
+}
+
+.quizBoxTitle i {
+    font-size: 1.5em;
+    color: #f2f2f2;
+    border: 5px solid #0f89b0;
+    border-radius: 100%;
+    font-weight: 600;
+    outline: none;
+}
+
+.quizBoxTitle i:hover {
+    color: #ededed;
+    border: 5px solid #0cade1;
+    cursor: pointer;
+}
+
+.transition {
+    transition: 300ms ease-in-out;
 }
 
 h1 {
@@ -76,8 +133,8 @@ h1 {
 
 .lineSep {
     height: 0.1px;
-    background: white;
     margin: 0.4em 0 0.2em;
+    background: var(--neutral);
 }
 
 .spacer {
@@ -87,16 +144,23 @@ h1 {
 h2 {
     font-weight: 300 !important;
     font-style: italic;
+    border-bottom: 1px solid var(--neutral);
+    display: inline-block;
 }
 
 p {
     font-weight: 100 !important;
+    margin-top: 15px;
 }
 
 /* Media Queries */
 
 /* Tablet Breakpoint */
 @media screen and (max-width: 992px) {
+
+    main {
+        background-size: 40em;
+    }
 
 }
 
@@ -107,8 +171,13 @@ p {
         display: none;
     }
 
+    main {
+        background-size: 30em;
+    }
+
     h1 {
-        font-size: 1.3em;
+        font-size: 1.5em;
+        font-weight: 400 !important;
     }
 
     h2 {
