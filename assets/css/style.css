@@ -1,0 +1,124 @@
+/* Coding Quiz Stylesheet */
+
+/* Imported Fonts */
+/* Noto Sans JP */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --soft: #dcd9d4;
+    --gray: #181a1b;
+    --silver: #4b5155;
+}
+
+::selection {
+    background: var(--silver);
+}
+
+body {
+    scroll-behavior: smooth;
+    background: var(--silver);
+    color: white;
+    font-family: Noto Sans JP;
+    letter-spacing: 0.5px;
+}
+
+a {
+    color: white;
+    font-family: Noto Sans JP;
+    text-decoration: none;
+    font-weight: 300 !important;
+}
+
+header, footer {
+    background: black;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    flex-wrap: wrap;
+    font-family: Noto Sans JP;
+    font-weight: 300 !important;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* justify-content: center; */
+}
+
+main {
+    height: 860px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contain {
+    padding: 3em;
+}
+
+.startText {
+    background: black;
+    border-radius: 10px;
+}
+
+h1 {
+    font-weight: 300 !important;
+}
+
+.lineSep {
+    height: 0.1px;
+    background: white;
+    margin: 0.4em 0 0.2em;
+}
+
+.spacer {
+    padding: 0.3em 0;
+}
+
+h2 {
+    font-weight: 300 !important;
+    font-style: italic;
+}
+
+p {
+    font-weight: 100 !important;
+}
+
+/* Media Queries */
+
+/* Tablet Breakpoint */
+@media screen and (max-width: 992px) {
+
+}
+
+/* Mobile Breakpoint */
+@media screen and (max-width: 500px) {
+
+    .homeLink {
+        display: none;
+    }
+
+    h1 {
+        font-size: 1.3em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    p {
+        font-size: 0.85em;
+    }
+
+}
+
+
