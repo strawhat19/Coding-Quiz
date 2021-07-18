@@ -1,6 +1,7 @@
 /* Coding Quiz Stylesheet */
 
 /* Imported Fonts */
+
 /* Noto Sans JP */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 
@@ -54,6 +55,37 @@ a {
     font-weight: 300 !important;
 }
 
+a:hover {
+    cursor: pointer;
+}
+
+.hoverLine {
+    position: relative;
+    transition: 300ms ease-in-out;
+}
+
+.hoverLine::after {
+    content: '';
+    background: var(--neutral);
+    position: absolute;
+    transition: 300ms ease-in-out;
+    height: 1px;
+    width: 100%;
+    bottom: -4px;
+    left: 0;
+    transform-origin: left;
+    transform: scale(0,1);
+}
+
+.homeLink::after {
+    width: 105%;
+}
+
+.hoverLine:hover::after {
+    transition: 300ms ease-in-out;
+    transform: scale(1,1);
+}
+
 header, footer {
     background: black;
     height: 40px;
@@ -65,6 +97,7 @@ header, footer {
     font-family: Noto Sans JP;
     font-weight: 300 !important;
     font-size: 13px;
+    grid-gap: 10px;
 }
 
 footer {
@@ -73,8 +106,13 @@ footer {
     width: 100%;
 }
 
-footer i, footer li, .vertical-sep {
+footer i, .vertical-sep {
     color: var(--neutral);
+}
+
+i.fas.fa-undo {
+    font-size: 0.8em;
+    margin-bottom: 0.em;
 }
 
 main {
@@ -111,7 +149,7 @@ main {
 .quizBoxTitle i {
     font-size: 1.5em;
     color: #f2f2f2;
-    border: 5px solid #0f89b0;
+    border: 3px solid var(--neutral);
     border-radius: 100%;
     font-weight: 600;
     outline: none;
@@ -119,8 +157,12 @@ main {
 
 .quizBoxTitle i:hover {
     color: #ededed;
-    border: 5px solid #0cade1;
+    border: 3px solid #0cade1;
     cursor: pointer;
+}
+
+.fa, .fas {
+    font-weight: 600 !important;
 }
 
 .transition {
@@ -129,6 +171,10 @@ main {
 
 h1 {
     font-weight: 300 !important;
+}
+
+.boldSecondary {
+    font-weight: 500;
 }
 
 .lineSep {
@@ -142,15 +188,64 @@ h1 {
 }
 
 h2 {
-    font-weight: 300 !important;
+    font-weight: 500 !important;
     font-style: italic;
     border-bottom: 1px solid var(--neutral);
     display: inline-block;
+    padding: 0.3em 0.3em 0.3em;
 }
 
 p {
-    font-weight: 100 !important;
+    font-weight: 300 !important;
     margin-top: 15px;
+}
+
+span, p {
+    color: white;
+    font-family: 'Noto Sans JP' !important;
+}
+
+.list-group {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 2.2em 0;
+    grid-gap: 15px;
+    font-size: 13px;
+    font-weight: 300;
+    flex-wrap: wrap;
+    list-style: inside;
+    min-height: 150px;
+    height: 150px;
+    max-height: 300px;
+}
+
+::marker {
+    color: var(--neutral);
+}
+
+
+.beginGameButton {
+    padding: 1em;
+    width: 100%;
+    float: none;
+    clear: both;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    outline: none;
+    border: 3px solid var(--neutral);
+    background: #f2f2f2;
+    color: black;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.7em;
+}
+
+.beginGameButton:hover {
+    background: #000000;
+    color: white;
+    cursor: pointer;
 }
 
 /* Media Queries */
@@ -163,6 +258,25 @@ p {
     }
 
 }
+
+/* iPhone Breakpoint */
+@media screen and (max-width: 768px) {
+
+    .list-group {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        padding: 2.2em 0;
+        grid-gap: 15px;
+        font-size: 13px;
+        font-weight: 300;
+        flex-wrap: wrap;
+        list-style: inside;
+        min-height: 150px;
+    }
+
+}
+
 
 /* Mobile Breakpoint */
 @media screen and (max-width: 500px) {
@@ -182,10 +296,17 @@ p {
 
     h2 {
         font-size: 1.2em;
+        font-weight: 300 !important;
     }
 
     p {
         font-size: 0.85em;
+        font-weight: 100 !important;
+    }
+
+    .list-group {
+        font-size: 12px;
+        font-weight: 100;
     }
 
 }

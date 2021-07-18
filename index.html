@@ -9,28 +9,43 @@
     <link rel="stylesheet" href="./assets/css/style.css"> <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css"> <!-- Font Awesome Icons -->
 </head>
-<body class="start transition">
+<body class="start">
     <header class="codingQuizHeader topbar transition">
-        <a class="showScoresLink" id="showScoresLink"><i class="fas fa-signal"></i> Scores</a>
+        <a class="showScoresLink hoverLine" id="showScoresLink"><i class="fas fa-signal"></i> | Scores</a>
         <div class="homeLink">
-            <a href="/" class="home homeLink" id="homeLink">
-            <i class="fas fa-home home"></i> Restart</a>
+            <a href="/" class="home homeLink hoverLine" id="homeLink">
+            <i class="fas fa-home home"></i> | Coding Quiz</a>
         </div>
-        <div class="timeLeft"><i class="fas fa-stopwatch"></i> 60 S</div>
+        <div class="timeLeft"><i class="fas fa-stopwatch"></i> | 60 S</div>
     </header>
     <main class="quizContainer contain transition">
         <div class="quizBox contain">
             <div class="quizBoxTitle">
-                <h1 class="spacer">Coding Quiz</h1>
+                <h1 class="spacer">Coding <span class="boldSecondary">Quiz</span></h1>
                 <i class="far fa-question-circle transition"></i>
             </div>
             <div class="lineSep"></div>
-            <h2 class="spacer">Javascript</h2>
+            <h2>Javascript</h2>
             <p class="spacer">This is a <span class="totalQuestions">10</span> question timed quiz to assess your knowledge of Javascript! The questions will cover topics such as:</p>
+            <ul class="list-group">
+                <li class="list-item">Variables</li>
+                <li class="list-item">Event Listeners</li>
+                <li class="list-item">DOM Maniplutaion</li>
+                <li class="list-item">Functions</li>
+                <li class="list-item">Local Storage</li>
+                <li class="list-item">Query Selector</li>
+                <li class="list-item">Loops</li>
+                <li class="list-item">Arrays</li>
+                <li class="list-item">Methods</li>
+                <li class="list-item">Methods</li>
+                <li class="list-item">Event Listeners</li>
+                <li class="list-item">Event Listeners</li>
+            </ul>
+            <button class="beginGameButton transition">Click Here To Begin Game</button>
         </div>
     </main>
     <footer class="codingQuizFooter transition">
-        <div class="nameText">Rakib Ahmed <span class="vertical-sep">|</span> Coding Quiz</div>
+        <div class="nameText"><a href="https://github.com/strawhat19" target="_blank" class="hoverLine"><i class="fab fa-github"></i> | Rakib Ahmed</a> <span class="vertical-sep">|</span><a href="/" target="_blank" class="hoverLine"> Restart <i class="fas fa-undo"></i></a></div>
         <div class="siteText">Copyright <i class="fas fa-copyright"></i> 2021</div>
     </footer>
     <!-- Begin Scripts -->
