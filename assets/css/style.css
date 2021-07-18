@@ -22,6 +22,8 @@
     --neutralDark: #1282a6;
     --neutralDarkGlass: rgb(18 130 166 / 70%);
     --silverGlass: rgb(75 81 85 / 85%);
+    /* Add Backdrop Filter of 8px */
+    --blackGlass: rgb(0 0 0 / 65%);
 }
 
 .correct {
@@ -34,6 +36,11 @@
 
 .neutral {
     background: var(--neutral);
+}
+
+.blackGlass {
+    backdrop-filter: blur(8px);
+    background: var(--blackGlass);
 }
 
 ::selection {
@@ -87,8 +94,9 @@ a:hover {
 }
 
 header, footer {
-    background: black;
+    background: var(--blackGlass);
     height: 40px;
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -98,6 +106,12 @@ header, footer {
     font-weight: 300 !important;
     font-size: 13px;
     grid-gap: 10px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 footer {
@@ -124,6 +138,7 @@ main {
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 50em;
+    margin-top: 40px;
 }
 
 .contain {
@@ -135,8 +150,9 @@ main {
 }
 
 .quizBox {
-    background: black;
+    background: rgb(0 0 0 / 65%);
     border-radius: 10px;
+    backdrop-filter: blur(8px);
 }
 
 .quizBoxTitle {
@@ -226,13 +242,14 @@ span, p {
 
 
 .beginGameButton {
-    padding: 1em;
+    padding: 0.55em;
     width: 100%;
+    display: block;
     float: none;
     clear: both;
     text-align: center;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 8px;
     outline: none;
     border: 3px solid var(--neutral);
     background: #f2f2f2;
@@ -279,7 +296,7 @@ span, p {
 
 
 /* Mobile Breakpoint */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 676px) {
 
     .homeLink {
         display: none;
@@ -307,8 +324,37 @@ span, p {
     .list-group {
         font-size: 12px;
         font-weight: 100;
+        height: auto;
+        max-height: none;
     }
 
 }
+
+/* Small Breakppoint */
+@media screen and (max-width: 400px) {
+
+    header, footer {
+        padding: 0 30px;
+    }
+
+    .contain {
+        padding: 2.5em;
+    }
+
+    main {
+        height: auto;
+    }
+
+    footer {
+        justify-content: center;
+    }
+
+    .siteText {
+        display: none;
+    }
+
+}
+
+
 
 
