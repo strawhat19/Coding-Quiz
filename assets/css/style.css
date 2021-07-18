@@ -53,6 +53,10 @@ body {
     color: white;
     font-family: Noto Sans JP;
     letter-spacing: 0.5px;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-content: center;
 }
 
 a {
@@ -130,15 +134,17 @@ i.fas.fa-undo {
 }
 
 main {
-    height: 860px;
+    height: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    grid-gap: 50px;
     align-items: center;
     background: linear-gradient(var(--neutralDarkGlass),var(--neutralDarkGlass)),url(/assets/images/Vectorquestion.svg);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 50em;
-    margin-top: 40px;
+    margin: 40px 0;
 }
 
 .contain {
@@ -162,23 +168,34 @@ main {
     grid-gap: 45px;
 }
 
-.quizBoxTitle i {
-    font-size: 1.5em;
-    color: #f2f2f2;
+.iconContainer {
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 120px;
+    align-items: center;
+}
+
+.customIcon {
+    font-size: 1em;
+    color: #000000;
+    background: white;
     border: 3px solid var(--neutral);
     border-radius: 100%;
-    font-weight: 600;
+    font-weight: 800;
     outline: none;
+    padding: 0 .15em;
+    min-width: 1.9em;
+    text-align: center;
 }
 
-.quizBoxTitle i:hover {
-    color: #ededed;
-    border: 3px solid #0cade1;
+.customIcon:hover {
+    color: #fff;
+    background: transparent;
+    cursor: crosshair;
+}
+
+.help:hover {
     cursor: pointer;
-}
-
-.fa, .fas {
-    font-weight: 600 !important;
 }
 
 .transition {
@@ -240,8 +257,7 @@ span, p {
     color: var(--neutral);
 }
 
-
-.beginGameButton {
+.gameButton {
     padding: 0.55em;
     width: 100%;
     display: block;
@@ -254,13 +270,14 @@ span, p {
     border: 3px solid var(--neutral);
     background: #f2f2f2;
     color: black;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: .1em;
     text-transform: uppercase;
     font-size: 0.7em;
 }
 
-.beginGameButton:hover {
-    background: #000000;
+.gameButton:hover {
+    background: rgb(0 0 0 / 0%);
     color: white;
     cursor: pointer;
 }
