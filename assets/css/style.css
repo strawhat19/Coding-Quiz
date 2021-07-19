@@ -114,6 +114,7 @@ header, footer {
     font-weight: 300 !important;
     font-size: 13px;
     grid-gap: 10px;
+    z-index: 1;
 }
 
 header {
@@ -255,6 +256,43 @@ span, p {
     min-height: 150px;
     height: 150px;
     max-height: 300px;
+}
+
+.answerChoices {
+    display: grid !important;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: flex-start;
+    align-items: stretch;
+    list-style-type: none !important;
+}
+
+.answer {
+    justify-self: stretch;
+    align-self: center;
+    border: solid 1px var(--neutral);
+    padding: 1em;
+    font-size: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.answer::before {
+    content: '> ';
+    color: var(--neutral);
+    font-size: 1em;
+    font-family: system-ui;
+    font-weight: 900;
+    transition: 300ms ease-in-out;
+}
+
+.answer:hover {
+    background: var(--neutral);
+    cursor: pointer;
+}
+
+.answer:hover::before {
+    color: white;
 }
 
 ::marker {

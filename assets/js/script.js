@@ -79,10 +79,7 @@ var questions = [
 
 // Functions
 function beginGame() {
-    console.log(cardTitle);
-    console.log(cardSubheading);
-    console.log(cardParagraph);
-    console.log(cardList);
+    console.log(topTimer);
     console.log(gameButton);
 }
 
@@ -93,20 +90,32 @@ function beginGame() {
 
             questions.forEach(element => {
 
-                var quizBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div><div class="customIcon transition iconTimer"title=Timer>60</div><div class="customIcon transition help"title=Help>?</div></div></div><div class=lineSep></div><h2 class="outOf questionIndex"></h2><p class="spacer questionP">Please choose one of the following answers!<ul class="answerChoices list-group"><li class="answer list-item">Variables<li class="answer list-item">Event Listeners<li class="answer list-item">DOM Maniplutaion<li class="answer list-item">Functions</ul></div>');
+                // var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div><div class="customIcon transition iconTimer"title=Timer>60</div><div class="customIcon transition help"title=Help>?</div></div></div><div class=lineSep></div><h2 class="outOf questionIndex"></h2><p class="spacer questionP">Please choose one of the following answers!<ul class="answerChoices list-group"><li class="answer list-item"></li><li class="answer list-item"></li><li class="answer list-item"></li><li class="answer list-item"></li></ul></div>');
 
-                $(event.target).parent().parent().append(quizBox);
+                var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div><div class="customIcon transition iconTimer"title=Timer>60</div><div class="customIcon transition help"title=Help>?</div></div></div><div class=lineSep></div><h2 class="outOf questionIndex"></h2><p class="spacer questionP">Please choose one of the following answers!<ul class="answerChoices list-group"></ul></div>');
+
+                $(event.target).parent().parent().append(questionBox);
 
             })
 
             for (var i = 0; i < questions.length; i++) {
-                var questionTitles = document.querySelectorAll('.questionTitleText');
-                var questionIndexes = document.querySelectorAll('.questionIndex');
+                var questionTitles = $('.questionTitleText');
+                var questionIndexes = $('.questionIndex');
                 questionTitles[i].textContent = questions[i].question;
                 questionIndexes[i].textContent = questions[i].index;
-                console.log(questions[i].question);
-                console.log(questions[i].index);
+
+                questions[i].choices.forEach(choice => {
+                    var answerChoices = $('.answerChoices');
+                    var answerButton = $('<li></li>');
+                    answerButton.innerText = questions[i].choices;
+                    answerButton.addClass('answer');
+                    answerButton.addClass('list-item');
+                    console.log(answerButton);
+                    answerChoices[i].append(answerButton);
+                })
             }
+
+
     })
 
 // Function Invokations
