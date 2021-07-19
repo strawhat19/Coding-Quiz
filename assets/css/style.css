@@ -260,8 +260,8 @@ span, p {
 
 .answerChoices {
     display: grid !important;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
     justify-items: flex-start;
     align-items: stretch;
     list-style-type: none !important;
