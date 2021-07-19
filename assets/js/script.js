@@ -97,18 +97,16 @@ function beginGame() {
 
                 $(event.target).parent().parent().append(quizBox);
 
-
-               
-                for (var i = 0; i < questions.length; i++) {
-                    var questionTitle = $('.questionTitleText');
-                    var questionIndex = $('.questionIndex');
-                    questionTitle.text(questions[i].question);
-                    questionIndex.text(questions[i].index);
-                    console.log(questions[i].question);
-                    console.log(questions[i].index);
-                }
-
             })
+
+            for (var i = 0; i < questions.length; i++) {
+                var questionTitles = document.querySelectorAll('.questionTitleText');
+                var questionIndexes = document.querySelectorAll('.questionIndex');
+                questionTitles[i].textContent = questions[i].question;
+                questionIndexes[i].textContent = questions[i].index;
+                console.log(questions[i].question);
+                console.log(questions[i].index);
+            }
     })
 
 // Function Invokations
