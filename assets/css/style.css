@@ -243,6 +243,10 @@ span, p {
     font-family: 'Noto Sans JP' !important;
 }
 
+.questionBox {
+    min-width: 90vw;
+}
+
 .list-group {
     display: flex;
     justify-content: flex-start;
@@ -261,8 +265,8 @@ span, p {
 .answerChoices {
     display: grid !important;
     justify-content: stretch;
-    grid-template-rows: auto auto;
-    grid-template-columns: auto auto;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
     list-style-type: none !important;
     column-gap: 15px !important;
     row-gap: 15px !important;
@@ -287,7 +291,7 @@ span, p {
     padding: 1em;
     font-size: 15px;
     border-radius: 10px;
-    font-weight: 600;
+    font-weight: 400;
     transition: 150ms ease-in-out;
 }
 
@@ -366,6 +370,26 @@ background: var(--neutral);
         flex-wrap: wrap;
         list-style: inside;
         min-height: 150px;
+    }
+
+    .answerChoices {
+        display: grid !important;
+        justify-content: stretch;
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 50% 50%;
+        list-style-type: none !important;
+        column-gap: 15px !important;
+        row-gap: 15px !important;
+        grid-gap: 0;
+    }
+
+    .answer::before {
+        display: none;
+    }
+
+    .questionIndex {
+        margin-top: 0px;
+        padding-bottom: .5em;
     }
 
 }
