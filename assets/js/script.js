@@ -109,6 +109,7 @@ function beginGame() {
                 for (var j = 0; j < questions[i].choices.length; j++) {
                     answerButton.textContent = choices;
                     answerChoices[i].append(answerButton);
+                    console.log(answerChoices[i]);
                 }
                 
             })
