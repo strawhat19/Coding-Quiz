@@ -4,6 +4,7 @@ console.log('Coding Quiz!');
 // Declaring Variables
 var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
+var elementTimer = $('.iconTimer')
 var main = $('main');
 var card = main.children();
 var cardTitle = main.children().children().eq(0);
@@ -18,7 +19,7 @@ var questions = [
     {
         question: 'Which of these is NOT a Valid Javascript/JS data type?',
         index: 'Question 1 out of 10',
-        choices: ['Null','Object','Symbol','Signal'],
+        choices: ['Null','Undefined','Symbol','Signal'],
         answer: 'Signal'
     },
     {
@@ -80,7 +81,7 @@ var questions = [
 // Functions
 function beginGame() {
     console.log(topTimer);
-    console.log(gameButton);
+    
 }
 
     main.on('click', '.gameButton', function(event) {
@@ -96,6 +97,7 @@ function beginGame() {
         for (var i = 0; i < questions.length; i++) {
             var questionTitles = $('.questionTitleText');
             var questionIndexes = $('.questionIndex');
+            var questionBox = $('.questionBox');
             questionTitles[i].textContent = questions[i].question;
             questionIndexes[i].textContent = questions[i].index;
             questions[i].choices.forEach(choices => {
@@ -109,11 +111,30 @@ function beginGame() {
                 for (var j = 0; j < questions[i].choices.length; j++) {
                     answerButton.textContent = choices;
                     answerChoices[i].append(answerButton);
-                    console.log(answerChoices[i]);
                 }
                 
+                // Check Answers and Move to Next Question
+                var correctAnswer = questions[i].answer;
+                console.log(correctAnswer);
+                var questionBox = $('.questionBox');
+                questionBox.on('click', '.answer', function(event) {
+                    var questionIndex = $('.questionIndex');
+                    var userPointsElement = $('.userPoints');
+                    var userPoints = 0;
+                    if ($(event.target).data('value') == correctAnswer) {
+                        questionIndex.text('Correct!');
+                        console.log(this);
+                        $(event.target).addClass('correct');
+                        userPoints++;
+                        userPointsElement.text(userPoints);
+                    }
+                })
             })
+            if (i < questions.length-1) {
+                var newi = i + 1;
+                questionBox[newi].classList.toggle('hide');
+                console.log(questionBox[newi]);
+            } 
         }
     })
-
 // Function Invokations

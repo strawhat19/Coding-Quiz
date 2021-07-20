@@ -30,8 +30,24 @@
     display: none;
 }
 
-.correct {
+.answer.list-item.correct {
+    border: solid 1px var(--correct);
+    background: transparent;
+    transition: 150ms ease-in-out;
+}
+
+.answer.list-item.correct:hover {
     background: var(--correct);
+    box-shadow: 0 0 20px var(--correct);
+    transition: 150ms ease-in-out;
+}
+
+.answer.list-item.correct::before {
+    color: var(--correct);
+}
+
+.answer.list-item.correct:hover::before {
+    color: #fff;
 }
 
 .wrong {
