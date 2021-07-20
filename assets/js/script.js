@@ -102,6 +102,8 @@ function beginGame() {
         questions.forEach(element => {
             var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
             $(event.target).parent().parent().append(questionBox);
+            var questionBox = $('.questionBox');
+            questionBox.attr('id', 'questionBox');
         })
 
         // Game Over Screen
@@ -111,7 +113,6 @@ function beginGame() {
         for (var i = 0; i < questions.length; i++) {
             var questionTitles = $('.questionTitleText');
             var questionIndexes = $('.questionIndex');
-            var questionBox = $('.questionBox');
             questionTitles[i].textContent = questions[i].question;
             questionIndexes[i].textContent = questions[i].index;
             questions[i].choices.forEach(choices => {
@@ -148,8 +149,8 @@ function beginGame() {
                         localStorage.setItem('Points', userPoints);
                         $(event.target).addClass('correct');
                     }
-                    // // If user is wrong
-                    // if ($(event.target).data('value') != correctAnswer) {
+                    // If user is wrong
+                    // if ($(event.target).data('value') === !question.answer) {
                     //     $(event.target).addClass('wrong');
                     // }
                 })
