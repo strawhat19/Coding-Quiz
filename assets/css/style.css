@@ -260,11 +260,24 @@ span, p {
 
 .answerChoices {
     display: grid !important;
-    grid-template-rows: 50% 50%;
-    grid-template-columns: 50% 50%;
-    justify-items: flex-start;
-    align-items: stretch;
+    justify-content: stretch;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
     list-style-type: none !important;
+    column-gap: 15px !important;
+    row-gap: 15px !important;
+    grid-gap: 0;
+}
+
+.questionIndex {
+    font-weight: 500 !important;
+    font-style: italic;
+    display: block;
+    padding: 0.3em 0.3em 0.3em;
+    margin-top: 10px;
+    margin-bottom: -35px;
+    text-align: center;
+    border-bottom: none;
 }
 
 .answer {
@@ -275,6 +288,7 @@ span, p {
     font-size: 15px;
     border-radius: 10px;
     font-weight: 600;
+    transition: 150ms ease-in-out;
 }
 
 .answer::before {
@@ -283,16 +297,19 @@ span, p {
     font-size: 1em;
     font-family: system-ui;
     font-weight: 900;
-    transition: 300ms ease-in-out;
+    transition: 150ms ease-in-out;
 }
 
 .answer:hover {
-    background: var(--neutral);
+background: var(--neutral);
     cursor: pointer;
+    box-shadow: 0 0 20px var(--neutral);
+    transition: 150ms ease-in-out;
+    color: #000;
 }
 
 .answer:hover::before {
-    color: white;
+    color: #fff;
 }
 
 ::marker {
