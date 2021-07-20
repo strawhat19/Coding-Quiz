@@ -50,6 +50,26 @@
     color: #fff;
 }
 
+.answer.list-item.wrong {
+    border: solid 1px var(--wrong);
+    background: transparent;
+    transition: 150ms ease-in-out;
+}
+
+.answer.list-item.wrong:hover {
+    background: var(--wrong);
+    box-shadow: 0 0 20px var(--wrong);
+    transition: 150ms ease-in-out;
+}
+
+.answer.list-item.wrong::before {
+    color: var(--wrong);
+}
+
+.answer.list-item.wrong:hover::before {
+    color: #fff;
+}
+
 .wrong {
     background: var(--wrong);
 }
@@ -168,6 +188,10 @@ main {
     margin: 40px 0;
 }
 
+.endScreen h2 {
+    padding: 0.5em 0;
+}
+
 .contain {
     padding: 3em;
 }
@@ -191,7 +215,7 @@ main {
 
 .iconContainer {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     min-width: 120px;
     align-items: center;
 }

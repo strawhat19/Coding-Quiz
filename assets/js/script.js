@@ -4,7 +4,7 @@ console.log('Coding Quiz!');
 // Declaring Variables
 var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
-var elementTimer = $('.iconTimer')
+var countDownTimer = 60;
 var main = $('main');
 var card = main.children();
 var cardTitle = main.children().children().eq(0);
@@ -13,6 +13,7 @@ var cardParagraph = main.children().children().eq(3);
 var totalQuestions = $('.totalQuestions');
 var cardList = main.children().children().eq(4);
 var gameButton = $('.gameButton');
+var userPoints = 0;
 
 // Quiz Variables
 var questions = [
@@ -80,8 +81,17 @@ var questions = [
 
 // Functions
 function beginGame() {
-    console.log(topTimer);
-    
+    // Count Down Timer Start
+    var countDown = setInterval(function() {
+        if (countDownTimer > 0) {
+            countDownTimer--;
+        } else {
+            clearInterval(countDown);
+            var questionBox = $('.questionBox');
+            questionBox.html('<h1 class="gameoverText" style="text-align: center; padding: 1em 0; border-bottom: 1px solid var(--neutral);">GAME OVER</h1><h1 class="gameoverText" style="text-align: center; padding: 1em 0;">YOU LOSE</h1>');
+        }
+        topTimer.html('<i class="fas fa-stopwatch"></i> | ' + countDownTimer + ' S');
+    }, 1000);
 }
 
     main.on('click', '.gameButton', function(event) {
@@ -90,9 +100,13 @@ function beginGame() {
         $(event.target).parent().hide();
 
         questions.forEach(element => {
-            var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div><div class="customIcon transition iconTimer"title=Timer>60</div><div class="customIcon transition help"title=Help>?</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
+            var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
             $(event.target).parent().parent().append(questionBox);
         })
+
+        // Game Over Screen
+        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText">Total Points:</h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><h2 class="outOf questionIndex">Congratulations on Finishing the Quiz!</h2><h2 class="outOf questionIndex">Click here to view the High Scores!</h2></div>');
+        main.append(endScreen);
 
         for (var i = 0; i < questions.length; i++) {
             var questionTitles = $('.questionTitleText');
@@ -115,25 +129,35 @@ function beginGame() {
                 
                 // Check Answers and Move to Next Question
                 var correctAnswer = questions[i].answer;
-                console.log(correctAnswer);
                 var questionBox = $('.questionBox');
                 questionBox.on('click', '.answer', function(event) {
-                    var questionIndex = $('.questionIndex');
-                    var userPointsElement = $('.userPoints');
-                    var userPoints = 0;
-                    if ($(event.target).data('value') == correctAnswer) {
-                        questionIndex.text('Correct!');
-                        console.log(this);
-                        $(event.target).addClass('correct');
-                        userPoints++;
+                    var nextQuestion = setInterval(function() {
+                        $(event.target).parent().parent().next().removeClass('hide');
+                        $(event.target).parent().parent().hide();
+                        clearInterval(nextQuestion);
+                    }, 500);
+                    if ($(event.target).data('value') === correctAnswer) {
+                        var userPointsElement = $('.userPoints');
+                        if (userPoints >= 0 && userPoints < questions.length) {
+                            userPoints = userPoints + 1/4;
+                            userPointsElement.text(userPoints);
+                        } else {
+                            userPointsElement.text(0);
+                        }
                         userPointsElement.text(userPoints);
+                        localStorage.setItem('Points', userPoints);
+                        $(event.target).addClass('correct');
                     }
+                    // // If user is wrong
+                    // if ($(event.target).data('value') != correctAnswer) {
+                    //     $(event.target).addClass('wrong');
+                    // }
                 })
             })
+            // Hide other boxes
             if (i < questions.length-1) {
                 var newi = i + 1;
                 questionBox[newi].classList.toggle('hide');
-                console.log(questionBox[newi]);
             } 
         }
     })
