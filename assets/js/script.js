@@ -21,61 +21,71 @@ var questions = [
         question: 'Which of these is NOT a Valid Javascript/JS data type?',
         index: 'Question 1 out of 10',
         choices: ['Null','Undefined','Symbol','Signal'],
-        answer: 'Signal'
+        answer: 'Signal',
+        incorrect: ['Null','Undefined','Symbol']
     },
     {
         question: 'Is JavaScript/JS a case-sensitive language?',
         index: 'Question 2 out of 10',
         choices: ['Yes','Not Anymore','Only for Identifiers','No'],
-        answer: 'Yes'
+        answer: 'Yes',
+        incorrect: ['Not Anymore','Only for Identifiers','No']
     },
     {
         question: 'Which of these is NOT a valid way to store data in JS?',
         index: 'Question 3 out of 10',
         choices: ['Local Storage','Public Storage','Session Storage','Variables'],
-        answer: 'Public Storage'
+        answer: 'Public Storage',
+        incorrect: ['Local Storage','Session Storage','Variables']
     },
     {
         question: 'Which of these is a valid way to declare a function?',
         index: 'Question 4 out of 10',
-        choices: ['function =','= function','f(x)','=>'],
-        answer: '=>'
+        choices: ['func =>','= function','f(x)','=>'],
+        answer: '=>',
+        incorrect: ['func =>','= function','f(x)']
     },
     {
         question: 'What does the "O" in DOM and JSON stand for?',
         index: 'Question 5 out of 10',
         choices: ['Order','Orientation','Object','Overage'],
-        answer: 'Object'
+        answer: 'Object',
+        incorrect: ['Overage','Order','Orientation',]
     },
     {
         question: 'How would one put Single Line comments in their JS code?',
         index: 'Question 6 out of 10',
         choices: ['// Comment','<!-- Comment -->','/* Comment */','(Comment)'],
-        answer: '// Comment'
+        answer: '// Comment',
+        incorrect: ['<!-- Comment -->','/* Comment */','(Comment)']
     },
     {
         question: 'Which of these is NOT a valid Event for the Event Listener?',
         index: 'Question 7 out of 10',
         choices: ['Scroll','Click','Hover','Mouseover'],
-        answer: 'Hover'
+        answer: 'Hover',
+        incorrect: ['Scroll','Click','Mouseover']
     },
     {
         question: 'Which of these is known as the Global Object?',
         index: 'Question 8 out of 10',
         choices: ['Document','Main','Body','Window'],
-        answer: 'Window'
+        answer: 'Window',
+        incorrect: ['Document','Main','Body']
     },
     {
         question: 'How would one store elements for each instance in an Array?',
         index: 'Question 9 out of 10',
         choices: ['querySelector','getElementByID','querySelectorAll','getElementsByClassName'],
-        answer: 'querySelectorAll'
+        answer: 'querySelectorAll',
+        incorrect: ['querySelector','getElementByID','getElementsByClassName']
     },
     {
         question: 'Which keyword is used to refer back to the parent object?',
         index: 'Question 10 out of 10',
         choices: ['parent','isNaN','this','contains'],
-        answer: 'this'
+        answer: 'this',
+        incorrect: ['parent','isNaN','contains']
     }
 ];
 
@@ -100,7 +110,7 @@ function beginGame() {
         $(event.target).parent().hide();
 
         questions.forEach(element => {
-            var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
+            var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
             $(event.target).parent().parent().append(questionBox);
             var questionBox = $('.questionBox');
             questionBox.attr('id', 'questionBox');
@@ -130,14 +140,29 @@ function beginGame() {
                 
                 // Check Answers and Move to Next Question
                 var correctAnswer = questions[i].answer;
+                var incorrectAnswers = questions[i].incorrect[0];
+                var incorrectAnswers2 = questions[i].incorrect[1];
+                var incorrectAnswers3 = questions[i].incorrect[2];
+                console.log(incorrectAnswers);
                 var questionBox = $('.questionBox');
                 questionBox.on('click', '.answer', function(event) {
+
+                    // Sets next question after user clicks
                     var nextQuestion = setInterval(function() {
                         $(event.target).parent().parent().next().removeClass('hide');
                         $(event.target).parent().parent().hide();
                         clearInterval(nextQuestion);
                     }, 500);
+
                     if ($(event.target).data('value') === correctAnswer) {
+
+                        // Change Button Color to Correct
+                        $(event.target).attr('class','');
+                        $(event.target).addClass('answer');
+                        $(event.target).addClass('correct');
+                        $(event.target).addClass('list-item');
+
+                        // Add 1 Point
                         var userPointsElement = $('.userPoints');
                         if (userPoints >= 0 && userPoints < questions.length) {
                             userPoints = userPoints + 1/4;
@@ -147,12 +172,13 @@ function beginGame() {
                         }
                         userPointsElement.text(userPoints);
                         localStorage.setItem('Points', userPoints);
-                        $(event.target).addClass('correct');
+                    } // Change Button Color to Correct
+                    else if($(event.target).data('value') === incorrectAnswers || $(event.target).data('value') === incorrectAnswers2 || $(event.target).data('value') === incorrectAnswers3) {
+                        $(event.target).attr('class','');
+                        $(event.target).addClass('answer');
+                        $(event.target).addClass('wrong');
+                        $(event.target).addClass('list-item');
                     }
-                    // If user is wrong
-                    // if ($(event.target).data('value') === !question.answer) {
-                    //     $(event.target).addClass('wrong');
-                    // }
                 })
             })
             // Hide other boxes
