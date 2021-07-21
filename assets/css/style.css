@@ -89,7 +89,6 @@
 
 body {
     scroll-behavior: smooth;
-    background: var(--neutralDark);
     color: white;
     font-family: Noto Sans JP;
     letter-spacing: 0.5px;
@@ -97,6 +96,9 @@ body {
     min-height: 100vh;
     justify-content: center;
     align-content: center;
+    background: var(--neutralDark);
+    /* Bars on Background */
+    /* background: repeating-linear-gradient(90deg, var(--neutral) 0 2px, var(--neutralDark) 0 230px); */
 }
 
 a {
@@ -188,8 +190,68 @@ main {
     margin: 40px 0;
 }
 
+/* End Time or Quiz Finish */
+/* End Screens */
+
+#formEntry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em 0 0;
+}
+
+#formEntry input {
+    background: var(--neutral);
+    outline: none;
+    border: none;
+    padding: 0.7em 1em 0.5em;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1em;
+}
+
+::placeholder {
+    color: #fff;
+}
+
 .endScreen h2 {
     padding: 0.5em 0;
+}
+
+.contain.question.questionBox.quizBox.timeOut {
+    min-width: 75vw;
+}
+
+.contain.question.questionBox.quizBox.timeOut .quizBoxTitle {
+    justify-content: center;
+    align-items: baseline;
+}
+
+.totalPointsElement {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.totalPointsElement .iconContainer {
+    min-width: 140px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.totalPointsElement .customIcon {
+    font-size: .8em;
+    color: #fff;
+    background: var(--neutral);
+    border-radius: 100%;
+    font-weight: 800;
+    outline: none;
+    padding: 0.3em 0.45em;
+    min-width: 1em;
+    text-align: center;
+    margin-bottom: 0px;
 }
 
 .contain {
@@ -215,8 +277,8 @@ main {
 
 .iconContainer {
     display: flex;
-    justify-content: flex-end;
-    min-width: 120px;
+    justify-content: space-between;
+    min-width: 140px;
     align-items: center;
 }
 

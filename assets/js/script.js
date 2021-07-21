@@ -4,7 +4,7 @@ console.log('Coding Quiz!');
 // Declaring Variables
 var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
-var countDownTimer = 60;
+var countDownTimer = 15;
 var main = $('main');
 var totalQuestions = $('.totalQuestions');
 var gameButton = $('.gameButton');
@@ -95,12 +95,16 @@ function beginGame() {
             // Count Down Timer Stop
             clearInterval(countDown);
             var questionBox = $('.questionBox');
-            questionBox.html('<h1 class="gameoverText" style="text-align: center; padding: 1em 0; border-bottom: 1px solid var(--neutral);">GAME OVER</h1><h1 class="gameoverText" style="text-align: center; padding: 1em 0;">YOU LOSE</h1>');
+            questionBox.addClass('timeOut');
+            // Time Ran Out Screen
+            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Times Up!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSep></div><div id="formEntry"><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"></form></div>');
+            $('.userPoints').html(userPoints * 10);
         }
         topTimer.html('<i class="fas fa-stopwatch"></i> | ' + countDownTimer + ' S');
         var checkEnd = setInterval(function() {
             if ($('.endScreen').css('display') === 'block') {
                 // Count Down Timer Stop
+                $('.userPoints').html(userPoints * 10);
                 clearInterval(checkEnd);
                 clearInterval(countDown);
             }
@@ -122,8 +126,8 @@ function beginGame() {
             questionBox.attr('id', 'questionBox');
         })
 
-        // Game Over Screen
-        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText">Total Points:</h1><div class=iconContainer id=itemContainer><div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><h2 class="outOf questionIndex">Congratulations on Finishing the Quiz!</h2><h2 class="outOf questionIndex">Click here to view the High Scores!</h2></div>');
+        // Quiz Finished Screen
+        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide timeOut"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Quiz Finished!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>You Scored: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSep></div><div id="formEntry"><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"></form></div></div>');
         main.append(endScreen);
 
         for (var i = 0; i < questions.length; i++) {
@@ -167,13 +171,15 @@ function beginGame() {
                         // Add 1 Point
                         var userPointsElement = $('.userPoints');
                         if (userPoints >= 0 && userPoints < questions.length) {
+                            // This is nested in a forEach loop
+                            // So everytime i did userPoints++, it would add 1 four times, once for each answer choice
+                            // Instead I did '+ 1/4'
                             userPoints = userPoints + 1/4;
                             userPointsElement.text(userPoints);
-                        } else {
-                            userPointsElement.text(0);
-                        }
+                        } // else {
+                        //     userPointsElement.text(0);
+                        // }
                         userPointsElement.text(userPoints);
-                        localStorage.setItem('Points', userPoints);
                     }
                     // Change Button Color to Correct
                     else if($(event.target).data('value') === incorrectAnswers || $(event.target).data('value') === incorrectAnswers2 || $(event.target).data('value') === incorrectAnswers3) {
