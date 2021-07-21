@@ -10,8 +10,6 @@ var totalQuestions = $('.totalQuestions');
 var gameButton = $('.gameButton');
 var userPoints = 0;
 
-
-
 // Quiz Variables
 var questions = [
     {
@@ -101,7 +99,7 @@ function beginGame() {
             questionBox.addClass('timeOut');
             // Time Ran Out Screen
             //             //             //      GAME END FUNCTIONS       //             //             //             //
-            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Times Up!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div>');
+            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Time Is Up!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div>');
             $('.userPoints').html(userPoints * 10);
             var printName = main.children().children().find('#userName');
             var printPoints = main.children().children().find('#userPointsElement');
@@ -140,18 +138,19 @@ function beginGame() {
         // Updated Statistics
         var updatedTimer = topTimer.text().split(' ')[2];
         var updatedPoints = $('.endScreen').find('.userPoints').html();
-        localStorage.setItem('Current Time Remaining: ', updatedTimer);
+        localStorage.setItem('Current Time Remaining: ', updatedTimer + 's');
         localStorage.setItem('Current Points: ', updatedPoints);
             if ($('.endScreen').css('display') === 'block') {
                 // Count Down Timer Stop
                 console.log('Game Over!');
                 $('.userPoints').html(userPoints * 10);
+                // Updated Statistics
                 var currentTimeRemaining = localStorage.getItem('Current Time Remaining: ');
                 var currentUserPoints = localStorage.getItem('Current Points: ');
                 var printPoints = main.children().children().find('#userPointsElement');
                 var printTime = main.children().children().find('#userTimeRemaining');
                 printPoints.text('Points: ' + currentUserPoints);
-                printTime.html('Time Left: ' + currentTimeRemaining + ' S');
+                printTime.html('Time Left: ' + currentTimeRemaining);
                 clearInterval(checkEnd);
                 clearInterval(countDown);
             }
@@ -196,9 +195,8 @@ function beginGame() {
             var appendName = $('<div>');
             appendName.attr('id','goodJobMessage');
             appendName.text('Good Job, ' + userName);
-            questionBox.append(appendName);
+            endScreen.append(appendName);
         })
-        // Add Game End Submission Functions Here
 
         for (var i = 0; i < questions.length; i++) {
             var questionTitles = $('.questionTitleText');
