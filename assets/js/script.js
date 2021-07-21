@@ -10,6 +10,8 @@ var totalQuestions = $('.totalQuestions');
 var gameButton = $('.gameButton');
 var userPoints = 0;
 
+
+
 // Quiz Variables
 var questions = [
     {
@@ -135,16 +137,26 @@ function beginGame() {
         //             //             //      GAME END FUNCTIONS       //             //             //           //
         // Check if the End Screen is in the window
         var checkEnd = setInterval(function() {
+        // Updated Statistics
+        var updatedTimer = topTimer.text().split(' ')[2];
+        var updatedPoints = $('.endScreen').find('.userPoints').html();
+        localStorage.setItem('Current Time Remaining: ', updatedTimer);
+        localStorage.setItem('Current Points: ', updatedPoints);
             if ($('.endScreen').css('display') === 'block') {
                 // Count Down Timer Stop
                 console.log('Game Over!');
                 $('.userPoints').html(userPoints * 10);
+                var currentTimeRemaining = localStorage.getItem('Current Time Remaining: ');
+                var currentUserPoints = localStorage.getItem('Current Points: ');
+                var printPoints = main.children().children().find('#userPointsElement');
+                var printTime = main.children().children().find('#userTimeRemaining');
+                printPoints.text('Points: ' + currentUserPoints);
+                printTime.html('Time Left: ' + currentTimeRemaining + ' S');
                 clearInterval(checkEnd);
                 clearInterval(countDown);
             }
         }, 100)
     }, 1000);
-
 }
 
     main.on('click', '.gameButton', function(event) {
@@ -165,16 +177,12 @@ function beginGame() {
         var endScreen = $('<div class="endScreen contain question questionBox quizBox hide timeOut"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Quiz Finished!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div></div>');
         main.append(endScreen);
         var printName = main.children().children().find('#userName');
-        var printPoints = main.children().children().find('#userPointsElement');
-        var printTime = main.children().children().find('#userTimeRemaining');
         var printDate = main.children().children().find('#date');
         var updateTime = setInterval(function() {
             var date = moment().format('MMM DD, YYYY');
             var time = moment().format('hh:mm:ss a');
             printDate.html('Date: ' + date + ' at ' + time);
         }, 10)
-        printPoints.text('Points: ' + userPoints * 10);
-        printTime.text('Time Left: ' + countDownTimer);
         // Form Submit
         var scoreEntryForm = $('form');
         scoreEntryForm.on('submit', function(event) {

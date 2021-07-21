@@ -563,7 +563,7 @@ background: var(--neutral);
         grid-gap: 15px;
         margin-top: -3em;
         border-top: 1px solid var(--neutral);
-        padding-top: 2em;
+        padding-top: 2.5em;
     }
 
     #formEntry input {
