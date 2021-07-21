@@ -190,6 +190,31 @@ main {
     margin: 40px 0;
 }
 
+/* Show Scores */
+#scoresHover {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    opacity: 0;
+    width: 400%;
+    border-radius: 10px;
+    padding: 2em;
+    background: var(--blackGlass);
+    backdrop-filter: blur(8px);
+    text-align: left;
+    transform-origin: top;
+    transform: scale(1,0);
+    transition: 300ms ease-in-out;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1em;
+}
+
+.showScoresLink:hover #scoresHover {
+    transform: scale(1,1);
+    opacity: 1;
+}
+
 /* End Time or Quiz Finish */
 /* End Screens */
 
@@ -264,6 +289,13 @@ main {
     font-size: 1em;
 }
 
+.statistic {
+    display: flex;
+    font-weight: 300;
+    letter-spacing: 1px;
+    justify-content: space-between;
+}
+
 #goodJobMessage {
     text-align: center;
     padding: 2em 1em 0;
@@ -325,7 +357,7 @@ main {
 }
 
 .quizBox {
-    background: rgb(0 0 0 / 65%);
+    background: var(--blackGlass);
     border-radius: 10px;
     backdrop-filter: blur(8px);
 }
