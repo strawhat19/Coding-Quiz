@@ -198,6 +198,7 @@ main {
     justify-content: center;
     align-items: center;
     padding: 1em 0 0;
+    flex-direction: row;
 }
 
 #formEntry input {
@@ -216,8 +217,68 @@ main {
     color: #fff;
 }
 
+#userStats {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 30vw;
+}
+
+#userStats .stats div {
+    border-right: 1px solid var(--neutral);
+    font-style: italic;
+    padding: 0 1em;
+    border-left: 1px solid var(--neutral);
+}
+
+#userStats .stats div:nth-child(1) {
+    border-left: none;
+}
+
+#userStats .stats div:nth-child(4) {
+    border-right: none;
+}
+
+#entryForm {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#submitButton {
+    padding: 0.7em 1em 0.5em;
+    border-radius: 10px;
+    color: #fff;
+    background: var(--neutral);
+    outline: none;
+    border: none;
+    margin: 0 1em;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+#goodJobMessage {
+    text-align: center;
+    padding: 2em 1em 0;
+    font-size: 20px;
+    font-style: italic;
+}
+
 .endScreen h2 {
     padding: 0.5em 0;
+}
+
+.lineSepEnd {
+    height: 5px;
+    margin: 1.4em 0 1.2em;
+    background: var(--neutral);
 }
 
 .contain.question.questionBox.quizBox.timeOut {
@@ -252,6 +313,7 @@ main {
     min-width: 1em;
     text-align: center;
     margin-bottom: 0px;
+    margin-left: 10px;
 }
 
 .contain {
@@ -449,11 +511,67 @@ background: var(--neutral);
 
 /* Media Queries */
 
+/* Notebook Breakpoint */
+@media screen and (max-width: 1215px) {
+
+    #userStats {
+        flex-direction: column;
+    }
+
+    #userStats .stats {
+        margin-bottom: 2em;
+    }
+
+}
+
 /* Tablet Breakpoint */
 @media screen and (max-width: 992px) {
 
     main {
         background-size: 40em;
+    }
+
+}
+
+/* Between Tablet and iPhone */
+@media screen and (max-width: 805px) {
+
+    #userStats .stats {
+        flex-direction: column;
+    }
+
+    #userStats .stats div {
+        width: 100%;
+        margin: 15px 30px;
+        text-align: center;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--neutral);
+        padding-bottom: 2em;
+    }
+    
+    #userStats .stats div:nth-child(4) {
+        border-bottom: none;
+    }
+
+    #entryForm {
+        display: flex;
+        align-items: center;
+        justify-content: stretch;
+        flex-direction: column;
+        width: 100%;
+        grid-gap: 15px;
+        margin-top: -3em;
+        border-top: 1px solid var(--neutral);
+        padding-top: 2em;
+    }
+
+    #formEntry input {
+        width: 50%;
+    }
+
+    #submitButton {
+        width: 50%;
     }
 
 }
@@ -556,7 +674,3 @@ background: var(--neutral);
     }
 
 }
-
-
-
-

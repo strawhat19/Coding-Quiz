@@ -89,6 +89,7 @@ function beginGame() {
 
     // Count Down Timer Start
     var countDown = setInterval(function() {
+        // As Long As Time Is Above 0 Seconds
         if (countDownTimer > 0) {
             countDownTimer--;
         } else {
@@ -97,13 +98,46 @@ function beginGame() {
             var questionBox = $('.questionBox');
             questionBox.addClass('timeOut');
             // Time Ran Out Screen
-            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Times Up!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSep></div><div id="formEntry"><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"></form></div>');
+            //             //             //      GAME END FUNCTIONS       //             //             //             //
+            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Times Up!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div>');
             $('.userPoints').html(userPoints * 10);
+            var printName = main.children().children().find('#userName');
+            var printPoints = main.children().children().find('#userPointsElement');
+            var printTime = main.children().children().find('#userTimeRemaining');
+            var printDate = main.children().children().find('#date');
+            var updateTime = setInterval(function() {
+                var date = moment().format('MMM DD, YYYY');
+                var time = moment().format('hh:mm:ss a');
+                printDate.html('Date: ' + date + ' at ' + time);
+            }, 10)
+            printPoints.text('Points: ' + userPoints * 10);
+            printTime.text('Time Left: ' + countDownTimer);
+            // Form Submit
+            var scoreEntryForm = $('form');
+            scoreEntryForm.on('submit', function(event) {
+                event.preventDefault();
+                clearInterval(updateTime);
+                $(event.target).parent().parent().parent().addClass('endScreen');
+                $(event.target).parent().parent().parent().siblings().remove();
+                var userName = $(event.target).children().val();
+                printName.html(userName);
+                printName.attr('style','text-transform:uppercase');
+                var appendName = $('<div>');
+                appendName.attr('id','goodJobMessage');
+                appendName.text('Good Job, ' + userName);
+                questionBox.append(appendName);
+            })
         }
+
+        // Make the timer print to the top timer element
         topTimer.html('<i class="fas fa-stopwatch"></i> | ' + countDownTimer + ' S');
+
+        //             //             //      GAME END FUNCTIONS       //             //             //           //
+        // Check if the End Screen is in the window
         var checkEnd = setInterval(function() {
             if ($('.endScreen').css('display') === 'block') {
                 // Count Down Timer Stop
+                console.log('Game Over!');
                 $('.userPoints').html(userPoints * 10);
                 clearInterval(checkEnd);
                 clearInterval(countDown);
@@ -126,9 +160,37 @@ function beginGame() {
             questionBox.attr('id', 'questionBox');
         })
 
+        //             //             //      GAME END FUNCTIONS       //             //             //           //
         // Quiz Finished Screen
-        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide timeOut"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Quiz Finished!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>You Scored: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSep></div><div id="formEntry"><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"></form></div></div>');
+        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide timeOut"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Quiz Finished!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div></div>');
         main.append(endScreen);
+        var printName = main.children().children().find('#userName');
+        var printPoints = main.children().children().find('#userPointsElement');
+        var printTime = main.children().children().find('#userTimeRemaining');
+        var printDate = main.children().children().find('#date');
+        var updateTime = setInterval(function() {
+            var date = moment().format('MMM DD, YYYY');
+            var time = moment().format('hh:mm:ss a');
+            printDate.html('Date: ' + date + ' at ' + time);
+        }, 10)
+        printPoints.text('Points: ' + userPoints * 10);
+        printTime.text('Time Left: ' + countDownTimer);
+        // Form Submit
+        var scoreEntryForm = $('form');
+        scoreEntryForm.on('submit', function(event) {
+            event.preventDefault();
+            clearInterval(updateTime);
+            $(event.target).parent().parent().parent().addClass('endScreen');
+            $(event.target).parent().parent().parent().siblings().remove();
+            var userName = $(event.target).children().val();
+            printName.html(userName);
+            printName.attr('style','text-transform:uppercase');
+            var appendName = $('<div>');
+            appendName.attr('id','goodJobMessage');
+            appendName.text('Good Job, ' + userName);
+            questionBox.append(appendName);
+        })
+        // Add Game End Submission Functions Here
 
         for (var i = 0; i < questions.length; i++) {
             var questionTitles = $('.questionTitleText');
@@ -161,7 +223,7 @@ function beginGame() {
                         $(event.target).parent().parent().next().removeClass('hide');
                         $(event.target).parent().parent().hide();
                         clearInterval(nextQuestion);
-                    }, 300);
+                    }, 100);
 
                     if ($(event.target).data('value') === correctAnswer) {
 
@@ -196,4 +258,3 @@ function beginGame() {
             } 
         }
     })
-// Function Invokations
