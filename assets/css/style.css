@@ -480,7 +480,7 @@ span, p {
     font-weight: 500 !important;
     font-style: italic;
     display: block;
-    padding: 0.3em 0.3em 0.3em;
+    padding: 0.3em 0.3em 0.6em;
     margin-top: 10px;
     margin-bottom: -35px;
     text-align: center;
@@ -534,8 +534,8 @@ background: var(--neutral);
     border-radius: 8px;
     outline: none;
     border: 3px solid var(--neutral);
-    background: #f2f2f2;
-    color: black;
+    background: transparent !important;
+    color: #fff;
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -543,7 +543,7 @@ background: var(--neutral);
 }
 
 .gameButton:hover {
-    background: rgb(0 0 0 / 0%);
+    background: var(--neutral) !important;
     color: white;
     cursor: pointer;
 }
