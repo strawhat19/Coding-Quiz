@@ -102,7 +102,7 @@ body {
 }
 
 a {
-    color: white;
+    color: white !important;
     font-family: Noto Sans JP;
     text-decoration: none;
     font-weight: 300 !important;
@@ -196,7 +196,7 @@ main {
     top: 35px;
     left: 0;
     opacity: 0;
-    width: 400%;
+    width: 450%;
     border-radius: 10px;
     padding: 2em;
     background: var(--blackGlass);
@@ -296,11 +296,18 @@ main {
     justify-content: space-between;
 }
 
-#goodJobMessage {
+#goodJobMessage, .reinitializeMessage {
     text-align: center;
     padding: 2em 1em 0;
     font-size: 20px;
     font-style: italic;
+}
+
+.reinitializeMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 1em;
 }
 
 .endScreen h2 {

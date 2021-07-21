@@ -4,7 +4,7 @@ console.log('Coding Quiz!');
 // Declaring Variables
 var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
-var countDownTimer = 15;
+var countDownTimer = 60;
 var main = $('main');
 var totalQuestions = $('.totalQuestions');
 var gameButton = $('.gameButton');
@@ -14,6 +14,8 @@ var showScoresElement = $('#scoresHover');
 
 // High Scores
 var highScores = JSON.parse(localStorage.getItem('High Scores')) || [];
+// Hide High Scores if array is empty
+if (highScores.length === 0) showScoresElement.hide();
 highScores.map(score => {
     var highScoreItems = $('<div class="statistic">');
     var blueSlashes = $('<span style="color: var(--neutral);"> // </span>');
@@ -23,18 +25,22 @@ highScores.map(score => {
     scoreNameElement.append(scoreName);
     var scoreScore = score.score;
     var scoreScoreElement = $('<div class="scoreScore">');
-    scoreScoreElement.append(scoreScore);
+    scoreScoreElement.append(scoreScore + ' points');
     var scoreTimeLeft = score.timeLeft;
     var scoreTimeLeftElement = $('<div class="scoreTimeLeft">');
-    scoreTimeLeftElement.append(scoreTimeLeft);
+    scoreTimeLeftElement.append(scoreTimeLeft + ' left');
+
     highScoreItems.append(scoreNameElement);
     highScoreItems.append(blueSlashes);
     highScoreItems.append(scoreScoreElement);
     highScoreItems.append(blueSlashes2);
     highScoreItems.append(scoreTimeLeftElement);
-    // highScoreItems.html(score.name + blueSlashes + score.score + ' Points ' + blueSlashes + score.timeLeft + ' Left');
-    console.log(highScoreItems);
    showScoresElement.append(highScoreItems);
+   showScoresLink.on('click', function(event) {
+       var quizBox = $('.quizBox');
+    //    quizBox.after(highScoreItems);
+       showScoresElement.append(highScoreItems);
+   })
 })
 
 // Quiz Variables
@@ -136,7 +142,7 @@ function beginGame() {
                 var date = moment().format('MMM DD, YYYY');
                 var time = moment().format('hh:mm:ss a');
                 printDate.html('Date: ' + date + ' at ' + time);
-            }, 10)
+            }, 100)
             printPoints.text('Points: ' + userPoints * 10);
             printTime.text('Time Left: ' + countDownTimer);
             // Form Submit
@@ -150,10 +156,27 @@ function beginGame() {
                 printName.html(userName);
                 printName.attr('style','text-transform:uppercase');
                 var appendName = $('<div>');
+                var reinitializeMessage = $('<div class="reinitializeMessage">Reinitializing Page <div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>');
                 appendName.attr('id','goodJobMessage');
                 appendName.text('Good Job, ' + userName);
+                questionBox.append(reinitializeMessage);
                 questionBox.append(appendName);
-            })
+                // Storing Scores
+                var userStat = {
+                    name: userName,
+                    score: localStorage.getItem('Current Points'),
+                    timeLeft: localStorage.getItem('Current Time Remaining')
+                }
+                highScores.push(userStat);
+                highScores.sort((a,b) => b.score - a.score);
+                highScores.splice(maxHighScores);
+                localStorage.setItem('High Scores', JSON.stringify(highScores));
+
+                // Reload Game After Score is Stored
+                setTimeout(function reloadGame() {
+                    location.reload(true);
+                }, 1500);
+                })
         }
 
         // Make the timer print to the top timer element
@@ -208,7 +231,7 @@ function beginGame() {
             var date = moment().format('MMM DD, YYYY');
             var time = moment().format('hh:mm:ss a');
             printDate.html('Date: ' + date + ' at ' + time);
-        }, 10)
+        }, 100)
         // Form Submit
         var scoreEntryForm = $('form');
         scoreEntryForm.on('submit', function(event) {
@@ -222,6 +245,8 @@ function beginGame() {
             var appendName = $('<div>');
             appendName.attr('id','goodJobMessage');
             appendName.text('Good Job, ' + userName);
+            var reinitializeMessage = $('<div class="reinitializeMessage">Reinitializing Page <div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>');
+            endScreen.append(reinitializeMessage);
             endScreen.append(appendName);
             // Storing Scores
             var userStat = {
@@ -229,12 +254,15 @@ function beginGame() {
                 score: localStorage.getItem('Current Points'),
                 timeLeft: localStorage.getItem('Current Time Remaining')
             }
-            console.log(userStat);
             highScores.push(userStat);
             highScores.sort((a,b) => b.score - a.score);
             highScores.splice(maxHighScores);
             localStorage.setItem('High Scores', JSON.stringify(highScores));
-            console.log(highScores);
+
+            // Reload Game After Score is Stored
+            setTimeout(function reloadGame() {
+                location.reload(true);
+            }, 1500);
         })
 
         for (var i = 0; i < questions.length; i++) {
@@ -268,7 +296,7 @@ function beginGame() {
                         $(event.target).parent().parent().next().removeClass('hide');
                         $(event.target).parent().parent().hide();
                         clearInterval(nextQuestion);
-                    }, 100);
+                    }, 350);
 
                     if ($(event.target).data('value') === correctAnswer) {
 
