@@ -6,12 +6,7 @@ var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
 var countDownTimer = 60;
 var main = $('main');
-var card = main.children();
-var cardTitle = main.children().children().eq(0);
-var cardSubheading = main.children().children().eq(2);
-var cardParagraph = main.children().children().eq(3);
 var totalQuestions = $('.totalQuestions');
-var cardList = main.children().children().eq(4);
 var gameButton = $('.gameButton');
 var userPoints = 0;
 
@@ -91,17 +86,27 @@ var questions = [
 
 // Functions
 function beginGame() {
+
     // Count Down Timer Start
     var countDown = setInterval(function() {
         if (countDownTimer > 0) {
             countDownTimer--;
         } else {
+            // Count Down Timer Stop
             clearInterval(countDown);
             var questionBox = $('.questionBox');
             questionBox.html('<h1 class="gameoverText" style="text-align: center; padding: 1em 0; border-bottom: 1px solid var(--neutral);">GAME OVER</h1><h1 class="gameoverText" style="text-align: center; padding: 1em 0;">YOU LOSE</h1>');
         }
         topTimer.html('<i class="fas fa-stopwatch"></i> | ' + countDownTimer + ' S');
+        var checkEnd = setInterval(function() {
+            if ($('.endScreen').css('display') === 'block') {
+                // Count Down Timer Stop
+                clearInterval(checkEnd);
+                clearInterval(countDown);
+            }
+        }, 100)
     }, 1000);
+
 }
 
     main.on('click', '.gameButton', function(event) {
@@ -109,6 +114,7 @@ function beginGame() {
         beginGame();
         $(event.target).parent().hide();
 
+        // Creating a div for each question in our array
         questions.forEach(element => {
             var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
             $(event.target).parent().parent().append(questionBox);
@@ -143,7 +149,6 @@ function beginGame() {
                 var incorrectAnswers = questions[i].incorrect[0];
                 var incorrectAnswers2 = questions[i].incorrect[1];
                 var incorrectAnswers3 = questions[i].incorrect[2];
-                console.log(incorrectAnswers);
                 var questionBox = $('.questionBox');
                 questionBox.on('click', '.answer', function(event) {
 
@@ -152,15 +157,12 @@ function beginGame() {
                         $(event.target).parent().parent().next().removeClass('hide');
                         $(event.target).parent().parent().hide();
                         clearInterval(nextQuestion);
-                    }, 500);
+                    }, 300);
 
                     if ($(event.target).data('value') === correctAnswer) {
 
-                        // Change Button Color to Correct
-                        $(event.target).attr('class','');
-                        $(event.target).addClass('answer');
+                        // Change Button color to Green if Correct
                         $(event.target).addClass('correct');
-                        $(event.target).addClass('list-item');
 
                         // Add 1 Point
                         var userPointsElement = $('.userPoints');
@@ -172,12 +174,12 @@ function beginGame() {
                         }
                         userPointsElement.text(userPoints);
                         localStorage.setItem('Points', userPoints);
-                    } // Change Button Color to Correct
+                    }
+                    // Change Button Color to Correct
                     else if($(event.target).data('value') === incorrectAnswers || $(event.target).data('value') === incorrectAnswers2 || $(event.target).data('value') === incorrectAnswers3) {
-                        $(event.target).attr('class','');
-                        $(event.target).addClass('answer');
+
+                         // Change Button color to Green if Correct
                         $(event.target).addClass('wrong');
-                        $(event.target).addClass('list-item');
                     }
                 })
             })
