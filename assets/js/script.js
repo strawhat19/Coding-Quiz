@@ -38,6 +38,7 @@ timerRange.on('input',function(event) {
 })
 topTimer.append(timerRange);
 dynamicTime.append(dynamicTimeNumber);
+dynamicTime.append('s');
 dynamicTime.append(timerRange);
 
 // Declaring Variables
@@ -180,16 +181,20 @@ if (highScores.length > 0) {
     var clearButton = $('<button>');
     clearButton.html('Clear Scores');
     clearButton.on('click', function(event) {
-        localStorage.removeItem('High Scores');
-        localStorage.clear();
         $(event.target).parent().children().remove();
         $(event.target).remove();
+        localStorage.removeItem('High Scores');
+        localStorage.clear();
         var noScoresMessage = $('<div>');
         noScoresMessage.html('No Scores to Show Yet!');
         setTimeout(function() {
             noScoresMessage.fadeIn(1000);
         }, 300);
         showScoresElement.append(noScoresMessage);
+        setTimeout(function() {
+            location.reload(true);
+        }, 100);
+        return;
     })
     // Appending Button
 showScoresElement.append(clearButton);
