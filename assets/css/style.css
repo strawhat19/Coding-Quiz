@@ -193,7 +193,7 @@ main {
 /* Show Scores */
 #scoresHover {
     position: absolute;
-    top: 35px;
+    top: 45px;
     left: 0;
     opacity: 0;
     width: 450%;
@@ -204,15 +204,46 @@ main {
     text-align: left;
     transform-origin: top;
     transform: scale(1,0);
-    transition: 300ms ease-in-out;
     display: flex;
     flex-direction: column;
     grid-gap: 1em;
+    transition: 300ms ease-in-out;
 }
 
 .showScoresLink:hover #scoresHover {
     transform: scale(1,1);
     opacity: 1;
+}
+
+.fadeInOut {
+    animation: fadeInOut 3500ms ease-in-out 1;
+}
+
+@keyframes fadeInOut {
+    0% {
+        transform: scale(1,0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0;
+        transform: scale(1,0.4);
+    }
+    30% {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+    80% {
+        transform: scale(1,1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1,0);
+        opacity: 0;
+    }
 }
 
 /* End Time or Quiz Finish */
@@ -536,7 +567,7 @@ background: var(--neutral);
     clear: both;
     text-align: center;
     margin: 0 auto;
-    border-radius: 8px;
+    border-radius: 20px;
     outline: none;
     border: 3px solid var(--neutral);
     background: transparent !important;

@@ -4,7 +4,7 @@ console.log('Coding Quiz!');
 // Declaring Variables
 var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
-var countDownTimer = 15;
+var countDownTimer = 60;
 var main = $('main');
 var totalQuestions = $('.totalQuestions');
 var gameButton = $('.gameButton');
@@ -15,7 +15,12 @@ var showScoresElement = $('#scoresHover');
 // High Scores
 var highScores = JSON.parse(localStorage.getItem('High Scores')) || [];
 // Hide High Scores if array is empty
-if (highScores.length === 0) showScoresElement.hide();
+if (highScores.length === 0) showScoresElement.html('No Scores To Show Yet!');
+if (highScores.length > 0) {
+    setTimeout(function() {
+        showScoresElement.addClass('fadeInOut');
+    }, 300)
+}
 highScores.map(score => {
     var highScoreItems = $('<div class="statistic">');
     var blueSlashes = $('<span style="color: var(--neutral);"> // </span>');
