@@ -167,10 +167,6 @@ highScores.map(score => {
     highScoreItems.append(scoreTimeLeftElement);
    showScoresElement.append(highScoreItems);
 
-   showScoresLink.on('click', function(event) {
-       showScoresElement.append(highScoreItems);
-   })
-
 })
 
 // If High Scores Available Fade-In-Out Animation
@@ -185,17 +181,15 @@ if (highScores.length > 0) {
     clearButton.html('Clear Scores');
     clearButton.on('click', function(event) {
         localStorage.removeItem('High Scores');
-        showScoresElement.children().fadeOut(1000);
-        setTimeout(function() {
-            showScoresElement.children().remove();
-        }, 1100);
+        localStorage.clear();
+        $(event.target).parent().children().remove();
+        $(event.target).remove();
         var noScoresMessage = $('<div>');
         noScoresMessage.html('No Scores to Show Yet!');
         setTimeout(function() {
             noScoresMessage.fadeIn(1000);
         }, 300);
         showScoresElement.append(noScoresMessage);
-        return false;
     })
     // Appending Button
 showScoresElement.append(clearButton);
@@ -208,8 +202,8 @@ function beginGame() {
     timerRange.remove();
     topTimer.css({'display':'flex','justify-content':'space-between','align-content':'center','width':'3.9em','align-items':'center','transition':'300 ms ease-in-out'});
     topTimer.fadeOut(10);
-    topTimer.fadeIn(3300);
-
+    topTimer.fadeIn(4000);
+    
     // Count Down Timer Start
     var countDown = setInterval(function() {
         // As Long As Time Is Above 0 Seconds
@@ -243,24 +237,24 @@ function beginGame() {
             scoreEntryForm.on('submit', function(event) {
                 event.preventDefault();
                 clearInterval(updateTime);
-                $(event.target).parent().parent().parent().addClass('endScreen');
+                $(event.target).parent().parent().parent().addClass('timeOutWindow');
                 $(event.target).parent().parent().parent().siblings().remove();
                 var userName = $(event.target).children().val();
+                var timeOutWindow = $('.timeOutWindow');
                 // Input Validation
                 if (!$(event.target).children().val()) {
+                    // event.preventDefault();
                     var alertMessage = $('<div>You Must Enter a Name to Submit Score!</div>');
                     alertMessage.attr('id','alertMessage');
                     alertMessage.attr('class','reinitializeMessage');
                     alertMessage.fadeIn();
-                    endScreen.append(alertMessage);
+                    timeOutWindow.append(alertMessage);
                     setTimeout(function() {
                         alertMessage.fadeOut();
                     }, 3000)
-                    alertMessage.remove();
                     return;
                 }
                 printName.html(userName);
-                printName.attr('style','text-transform:uppercase');
                 var appendName = $('<div>');
                 var reinitializeMessage = $('<div class="reinitializeMessage">Reinitializing Page <div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>');
                 appendName.attr('id','goodJobMessage');
@@ -355,8 +349,8 @@ function beginGame() {
             $(event.target).parent().parent().parent().addClass('endScreen');
             $(event.target).parent().parent().parent().siblings().remove();
             var userName = $(event.target).children().val();
-            // Input Validation
-            if (!$(event.target).children().val()) {
+           // Input Validation
+           if (!$(event.target).children().val()) {
                 var alertMessage = $('<div>You Must Enter a Name to Submit Score!</div>');
                 alertMessage.attr('id','alertMessage');
                 alertMessage.attr('class','reinitializeMessage');
@@ -365,7 +359,6 @@ function beginGame() {
                 setTimeout(function() {
                     alertMessage.fadeOut();
                 }, 3000)
-                alertMessage.remove();
                 return;
             }
             printName.html(userName);
