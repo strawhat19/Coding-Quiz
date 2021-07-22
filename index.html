@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding Quiz</title> <!-- Site Title -->
-    <link rel="icon" href="./assets/images/Vectorquestionblue.svg" type="image/x-icon"> <!-- Site Icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css"> <!-- Font Awesome Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!-- BootStrap -->
-    <link rel="stylesheet" href="./assets/css/style.css"> <!-- Stylesheets -->
+
+    <!-- Site Title -->
+    <title>Coding Quiz</title>
+    <!-- Site Icon -->
+    <link rel="icon" href="./assets/images/Vectorquestionblue.svg" type="image/x-icon">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
+<!-- Begin Page -->
+<!-- This is just the beginning screen, the rest of the quiz is created in Javascript // jQuery -->
 <body class="start">
+
     <header class="codingQuizHeader topbar">
-        <a class="showScoresLink hoverLine" id="showScoresLink" title="Scores"><i class="fas fa-signal"></i> | Scores
+        <a class="showScoresLink hoverLine" id="showScoresLink" title="High Scores"><i class="fas fa-signal"></i> | Scores
         <div id="scoresHover"></div></a>
         <div class="homeLink">
             <a href="./" class="home homeLink hoverLine" id="homeLink" title="Home">
             <i class="fas fa-home home"></i> | Coding Quiz</a>
         </div>
-        <div class="timeLeft" title="Timer"><i class="fas fa-stopwatch"></i> | 60 S</div>
+        <div class="timeLeft" title="Timer"><i class="fas fa-stopwatch"></i></div>
     </header>
+
     <main class="quizContainer contain">
         <div class="quizBox contain">
             <div class="quizBoxTitle">
                 <h1 class="spacer">Coding <span class="boldSecondary">Quiz</span></h1>
                 <div class="iconContainer outerIconContainer">
                     <div class="iconContainer" id="itemContainer">Time Remaining: 
-                        <div class="customIcon transition timeRemaining" title="Time">60</div>
+                        <div class="customIcon transition timeRemaining" title="Time"></div>
                     </div>
                     <div class="iconContainer" id="itemContainer">Total Points: 
                         <div class="customIcon transition userPoints"title="Points">0</div>
@@ -35,7 +47,7 @@
             </div>
             <div class="lineSep"></div>
             <h2>Javascript</h2>
-            <p class="spacer">This is a <span class="totalQuestions" title="Total Questions">10</span> question timed quiz to assess your knowledge of Javascript! The questions will cover topics such as:</p>
+            <p class="spacer">This is a <span class="totalQuestions" title="Total Questions"></span> question timed quiz to assess your knowledge of Javascript! The questions will cover topics such as:</p>
             <ul class="list-group">
                 <li class="list-item">Variables</li>
                 <li class="list-item">Event Listeners</li>
@@ -53,6 +65,7 @@
             <button class="gameButton transition">Click Here To Begin Game</button>
         </div>
     </main>
+
     <footer class="codingQuizFooter">
         <div class="nameText">
             <a href="https://github.com/strawhat19" target="_blank" class="hoverLine" title="GitHub"><i class="fab fa-github"></i> | Rakib Ahmed</a> 
@@ -61,13 +74,19 @@
         </div>
         <div class="siteText">Copyright <i class="fas fa-copyright"></i> 2021</div>
     </footer>
+
+
     <!-- Begin Scripts -->
-    <!-- jQuery  -->
+    <!-- Updated jQuery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- Moment.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <!-- jQuery Link from Class -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Custom Scripts -->
     <script src="./assets/js/script.js"></script>
     <!-- End Scripts -->
+
 </body>
 </html>
