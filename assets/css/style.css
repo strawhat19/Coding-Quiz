@@ -835,6 +835,22 @@ background: var(--neutral);
 /* Small Breakppoint */
 @media screen and (max-width: 400px) {
 
+    #dynamicTime input {
+        display: none;
+    }
+
+    .timeLeft {
+        width: 3.5em !important;
+    }
+
+    #dynamicTime {
+        justify-content: center;
+    }
+
+    .fa-stopwatch {
+        margin-right: 0.2em;
+    }
+
     header, footer {
         padding: 0 30px;
     }
