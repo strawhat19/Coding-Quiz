@@ -4,7 +4,7 @@ console.log('Coding Quiz!');
 // Declaring Variables
 var showScoresLink = $('#showScoresLink');
 var topTimer = $('.timeLeft');
-var countDownTimer = 60;
+var countDownTimer = 15;
 var main = $('main');
 var totalQuestions = $('.totalQuestions');
 var gameButton = $('.gameButton');
@@ -131,8 +131,9 @@ function beginGame() {
             var questionBox = $('.questionBox');
             questionBox.addClass('timeOut');
             // Time Ran Out Screen
+
             //             //             //      GAME END FUNCTIONS       //             //             //             //
-            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Time Is Up!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div>');
+            questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Time Is Up!</b></h1><div class="totalPointsElement"><div class="iconContainer outerIconContainer"><div class="iconContainer" id="itemContainer">Time Remaining: <div class="customIcon transition timeRemaining" title="Time">60</div></div><div class="iconContainer" id="itemContainer">Total Points: <div class="customIcon transition userPoints"title="Points">0</div></div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div>');
             $('.userPoints').html(userPoints * 10);
             var printName = main.children().children().find('#userName');
             var printPoints = main.children().children().find('#userPointsElement');
@@ -159,8 +160,8 @@ function beginGame() {
                 var reinitializeMessage = $('<div class="reinitializeMessage">Reinitializing Page <div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>');
                 appendName.attr('id','goodJobMessage');
                 appendName.text('Good Job, ' + userName);
-                questionBox.append(reinitializeMessage);
                 questionBox.append(appendName);
+                questionBox.append(reinitializeMessage);
                 // Storing Scores
                 var userStat = {
                     name: userName,
@@ -188,6 +189,8 @@ function beginGame() {
         // Updated Statistics
         var updatedTimer = topTimer.text().split(' ')[2];
         var updatedPoints = $('.endScreen').find('.userPoints').html();
+        var updatedIconTimer = main.find('.timeRemaining');
+        updatedIconTimer.html(updatedTimer);
         localStorage.setItem('Current Time Remaining', updatedTimer + 's');
         localStorage.setItem('Current Points', updatedPoints);
             if ($('.endScreen').css('display') === 'block') {
@@ -215,7 +218,7 @@ function beginGame() {
 
         // Creating a div for each question in our array
         questions.forEach(element => {
-            var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
+            var questionBox = $('<div class="contain question questionBox quizBox"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"></h1><div class="iconContainer outerIconContainerQuestions"><div class=iconContainer id=itemContainer>Time Remaining: <div class="customIcon transition timeRemaining" title="Time">60</div></div><div class="iconContainer" id="itemContainer">Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSep></div><ul class="answerChoices list-group"></ul><h2 class="outOf questionIndex"></h2></div>');
             $(event.target).parent().parent().append(questionBox);
             var questionBox = $('.questionBox');
             questionBox.attr('id', 'questionBox');
@@ -223,7 +226,7 @@ function beginGame() {
 
         //             //             //      GAME END FUNCTIONS       //             //             //           //
         // Quiz Finished Screen
-        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide timeOut"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Quiz Finished!</b></h1><div class="totalPointsElement"><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title=Points>0</div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div></div>');
+        var endScreen = $('<div class="endScreen contain question questionBox quizBox hide timeOut"><div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Quiz Completed!</b></h1><div class="totalPointsElement"><div class="outerIconContainer iconContainer"><div class=iconContainer id=itemContainer>Time Remaining: <div class="customIcon transition timeRemaining" title="Time">60</div></div><div class=iconContainer id=itemContainer>Total Points: <div class="customIcon transition userPoints"title="Points">0</div></div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">USER </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div></div>');
         main.append(endScreen);
         var printName = main.children().children().find('#userName');
         var printDate = main.children().children().find('#date');
@@ -246,8 +249,8 @@ function beginGame() {
             appendName.attr('id','goodJobMessage');
             appendName.text('Good Job, ' + userName);
             var reinitializeMessage = $('<div class="reinitializeMessage">Reinitializing Page <div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>');
-            endScreen.append(reinitializeMessage);
             endScreen.append(appendName);
+            endScreen.append(reinitializeMessage);
             // Storing Scores
             var userStat = {
                 name: userName,

@@ -296,7 +296,7 @@ main {
     justify-content: space-between;
 }
 
-#goodJobMessage, .reinitializeMessage {
+#goodJobMessage {
     text-align: center;
     padding: 2em 1em 0;
     font-size: 20px;
@@ -304,6 +304,10 @@ main {
 }
 
 .reinitializeMessage {
+    text-align: center;
+    padding: 2em 1em 0;
+    font-size: 16px;
+    font-style: italic;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -381,6 +385,7 @@ main {
     justify-content: space-between;
     min-width: 140px;
     align-items: center;
+    grid-gap: 10px;
 }
 
 .customIcon {
@@ -549,6 +554,16 @@ background: var(--neutral);
 }
 
 /* Media Queries */
+
+/* Big Screens Breakpoint */
+@media screen and (max-width: 1555px) {
+
+    .outerIconContainerQuestions {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+}
 
 /* Notebook Breakpoint */
 @media screen and (max-width: 1215px) {
