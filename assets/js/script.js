@@ -6,18 +6,21 @@ console.log('Coding Quiz!');
 // Game Variables
 var userPoints = 0; // User Starting Points
 var maxHighScores = 5; // Max High Scores to Store
-// Creating Dynamic Time Controller
+var nextQuestionTimer = 750; // Set the Time in Milliseconds of When the Next Question is Cycled
+var showScoresAnimationTimer = 500; // Sets the Time in Milliseconds of When the Show Scores Animation Plays
+
+// Creating Dynamic Timers
 var timerRange = $('<input>');
-// Dynamic Timers
 var topTimer = $('.timeLeft');
 topTimer.css({'display':'flex','justify-content':'space-between','align-content':'center','width':'14em','align-items':'center','transition':'300 ms ease-in-out'});
-timerRange.attr('type','range');
-timerRange.attr('min','15');
-timerRange.attr('max','99');
-timerRange.attr('value','60');
+timerRange.attr('type','range'); // Creating Input Slider
+timerRange.attr('min','15'); // Minimum time allowed
+timerRange.attr('max','99'); // Maximum time alloweed
+timerRange.attr('value','60'); // Change this value to affect the default starting time
 timerRange.attr('class','timerRange');
 timerRange.attr('id','timerRange');
-var countDownTimer = timerRange.val(); // This is the number that the timer will begin counting down from
+// Setting the initial value of time equal to the default we set above
+var countDownTimer = timerRange.val();
 var timeRemaining = $('.timeRemaining');
 timeRemaining.html(countDownTimer);
 var dynamicTimerIcon = $('<i>');
@@ -27,15 +30,17 @@ topTimer.html(dynamicTimerIcon);
 topTimer.append(' | ');
 var dynamicTime = $('<div id="dynamicTime">');
 var dynamicTimeNumber = $('<span id="dynamicTimeNumber">');
+// Appending Dynamic Time
 topTimer.append(dynamicTime);
 dynamicTimeNumber.html(countDownTimer);
+// Synchronizing Time Slider with Number
 timerRange.on('input',function(event) {
     var timerRangeValue = $(event.target).val();
     countDownTimer = timerRangeValue;
     var timeRemaining = $('.timeRemaining');
     timeRemaining.html(countDownTimer);
     dynamicTimeNumber.html(countDownTimer);
-})
+}) // Appending Dynamic Time Element
 topTimer.append(timerRange);
 dynamicTime.append(dynamicTimeNumber);
 dynamicTime.append('s');
@@ -53,6 +58,7 @@ var gameButton = $('.gameButton');
 
 // Quiz Variables
 var questions = [
+
     {
         question: 'Which of these is NOT a Valid Javascript/JS data type?',
         index: 'Question 1 out of 10',
@@ -123,6 +129,7 @@ var questions = [
         answer: 'this',
         incorrect: ['parent','isNaN','contains']
     }
+
 ];
 
 // Dynamic Question Total
@@ -142,10 +149,10 @@ timeoutSound.src = './assets/sounds/wahwahwah.mp3';
 // High Scores
 var highScores = JSON.parse(localStorage.getItem('High Scores')) || [];
 
-// High Scores Display
+// For Each Score Stored, Create & Execute
 highScores.map(score => {
-
-    // For Each Score Stored, Create & Execute
+    
+    // High Scores Display
     var highScoreItems = $('<div class="statistic">');
     var blueSlashes = $('<span style="color: var(--neutral);"> // </span>');
     var blueSlashes2 = $('<span style="color: var(--neutral);"> // </span>');
@@ -159,23 +166,22 @@ highScores.map(score => {
     var scoreTimeLeftElement = $('<div class="scoreTimeLeft">');
     scoreTimeLeftElement.append(scoreTimeLeft + ' left');
 
+    // Appending High Score Items
     highScoreItems.append(scoreNameElement);
-    // Created Blue slashes for Styling
-    highScoreItems.append(blueSlashes);
+    highScoreItems.append(blueSlashes); // Created Blue slashes for Styling
     highScoreItems.append(scoreScoreElement);
-    // Had to make two for some reason?
-    highScoreItems.append(blueSlashes2);
+    highScoreItems.append(blueSlashes2); // Had to make two for some reason?
     highScoreItems.append(scoreTimeLeftElement);
-   showScoresElement.append(highScoreItems);
+    showScoresElement.append(highScoreItems);
 
 })
 
-// If High Scores Available Fade-In-Out Animation
+// If High Scores Available, Fade-In-Out Animation
 if (highScores.length > 0) {
 
     setTimeout(function() {
         showScoresElement.addClass('fadeInOut');
-    }, 1500);
+    }, showScoresAnimationTimer);
 
     // Creating Button to Clear Local Storage // Clear High Scores
     var clearButton = $('<button>');
@@ -196,8 +202,10 @@ if (highScores.length > 0) {
         }, 100);
         return;
     })
+
     // Appending Button
-showScoresElement.append(clearButton);
+    showScoresElement.append(clearButton);
+
 }
 
 // Begin Game
@@ -222,20 +230,20 @@ function beginGame() {
 
             //             //             //      GAME END FUNCTIONS       //             //             //             //
 
-            // Time Ran Out Screen
+            // Check if Time Ran Out Screen is in the Window
             timeoutSound.play();
             questionBox.html('<div class="questionTitle quizBoxTitle"><h1 class="spacer questionTitleText"><b>Time Is Up!</b></h1><div class="totalPointsElement"><div class="iconContainer outerIconContainer"><div class="iconContainer" id="itemContainer">Time Remaining: <div class="customIcon transition timeRemaining" title="Time">60</div></div><div class="iconContainer" id="itemContainer">Total Points: <div class="customIcon transition userPoints"title="Points">0</div></div></div></div></div><div class=lineSepEnd></div><div id="formEntry" class="stats"><div id="userStats"><div class="stats"><div id="userName">User </div><div id="userPointsElement">Points: </div><div id="userTimeRemaining">Time Left: </div><div id="date">Today: </div></div><form id="entryForm"><input id="name" type="name" name="name" placeholder="Enter your Name"><button type="submit" id="submitButton">Submit Score</button></form></div></div>');
-            $('.userPoints').html(userPoints * 10);
+            $('.userPoints').html(userPoints * 10); // Multiplying User Points by 10 to get Score
             var printName = main.children().children().find('#userName');
             var printPoints = main.children().children().find('#userPointsElement');
             var printTime = main.children().children().find('#userTimeRemaining');
             var printDate = main.children().children().find('#date');
-            var updateTime = setInterval(function() {
+            var updateTime = setInterval(function() { // Dynamic Time Update // Moment.js
                 var date = moment().format('MMM DD, YYYY');
                 var time = moment().format('hh:mm:ss a');
                 printDate.html('Date: ' + date + ' at ' + time);
-            }, 100)
-            printPoints.text('Points: ' + userPoints * 10);
+            }, 100) // Rate of Checking Time
+            printPoints.text('Points: ' + userPoints * 10); // Multiplies Points by 10 for Score
             printTime.text('Time Left: ' + countDownTimer);
             // Form Submit
             var scoreEntryForm = $('form');
@@ -258,7 +266,7 @@ function beginGame() {
                         alertMessage.fadeOut();
                     }, 3000)
                     return;
-                }
+                } // If User Input is Valid, Execute the Following
                 printName.html(userName);
                 var appendName = $('<div>');
                 var reinitializeMessage = $('<div class="reinitializeMessage">Reinitializing Page <div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div></div>');
@@ -271,23 +279,26 @@ function beginGame() {
                     name: userName,
                     score: localStorage.getItem('Current Points'),
                     timeLeft: localStorage.getItem('Current Time Remaining')
-                }
+                } // Once We Store the Score, Push to our High Scores Array
                 highScores.push(userStat);
                 highScores.sort((a,b) => b.score - a.score);
                 highScores.splice(maxHighScores);
+                // Setting Item in Local Storage
                 localStorage.setItem('High Scores', JSON.stringify(highScores));
 
                 // Reload Game After Score is Stored
                 setTimeout(function reloadGame() {
                     location.reload(true);
                 }, 1000);
-                })
+            })
+
         }
 
         // Make the timer print to the top timer element
         topTimer.html('<i class="fas fa-stopwatch"></i> | ' + countDownTimer + ' S');
 
         //             //             //      GAME END FUNCTIONS       //             //             //           //
+
         // Check if the End Screen is in the window
         var checkEnd = setInterval(function() {
         // Updated Statistics
@@ -300,7 +311,7 @@ function beginGame() {
             if ($('.endScreen').css('display') === 'block') {
                 // Count Down Timer Stop
                 console.log('Game Over!');
-                $('.userPoints').html(userPoints * 10);
+                $('.userPoints').html(userPoints * 10); // Multiplying User Points by 10 to get Score
                 victorySound.play();
                 // Updated Statistics
                 var currentTimeRemaining = localStorage.getItem('Current Time Remaining');
@@ -312,8 +323,11 @@ function beginGame() {
                 clearInterval(checkEnd);
                 clearInterval(countDown);
             }
-        }, 100)
-    }, 1000);
+
+        }, 100) // Clearing Interval for Update Time
+
+    }, 1000); // Clearing Interval for Count Down
+
 }
 
 // On Begin Game Button
@@ -341,12 +355,11 @@ function beginGame() {
         main.append(endScreen);
         var printName = main.children().children().find('#userName');
         var printDate = main.children().children().find('#date');
-        var updateTime = setInterval(function() {
+        var updateTime = setInterval(function() { // Dynamic Time Updater
             var date = moment().format('MMM DD, YYYY');
             var time = moment().format('hh:mm:ss a');
             printDate.html('Date: ' + date + ' at ' + time);
-        }, 100)
-        // Form Submit
+        }, 100) // Form Submit
         var scoreEntryForm = $('form');
         scoreEntryForm.on('submit', function(event) {
             event.preventDefault();
@@ -365,7 +378,7 @@ function beginGame() {
                     alertMessage.fadeOut();
                 }, 3000)
                 return;
-            }
+            } // If User Input is Valid, Execute the Following
             printName.html(userName);
             var appendName = $('<div>');
             appendName.attr('id','goodJobMessage');
@@ -378,7 +391,7 @@ function beginGame() {
                 name: userName,
                 score: localStorage.getItem('Current Points'),
                 timeLeft: localStorage.getItem('Current Time Remaining')
-            }
+            } // Once we store the Score, push it to our main High Scores Array
             highScores.push(userStat);
             highScores.sort((a,b) => b.score - a.score);
             highScores.splice(maxHighScores);
@@ -388,8 +401,10 @@ function beginGame() {
             setTimeout(function reloadGame() {
                 location.reload(true);
             }, 1000);
+
         })
 
+        // Creating and Setting Question Boxes
         for (var i = 0; i < questions.length; i++) {
             var questionTitles = $('.questionTitleText');
             var questionIndexes = $('.questionIndex');
@@ -397,8 +412,8 @@ function beginGame() {
             questionIndexes[i].textContent = questions[i].index;
             questions[i].choices.forEach(choices => {
                 var answerChoices = $('.answerChoices');
-                // Had to use Vanilla Javascript here
                 // jQuery wasnt working
+                // Had to use Vanilla Javascript here
                 var answerButton = document.createElement('li');
                 answerButton.classList.add('answer');
                 answerButton.classList.add('list-item');
@@ -414,6 +429,8 @@ function beginGame() {
                 var incorrectAnswers2 = questions[i].incorrect[1];
                 var incorrectAnswers3 = questions[i].incorrect[2];
                 var questionBox = $('.questionBox');
+
+                // When User Clicks on Answer
                 questionBox.on('click', '.answer', function(event) {
 
                     // Sets next question after user clicks
@@ -421,7 +438,7 @@ function beginGame() {
                         $(event.target).parent().parent().next().removeClass('hide');
                         $(event.target).parent().parent().hide();
                         clearInterval(nextQuestion);
-                    }, 750);
+                    }, nextQuestionTimer); // Sets next question after specified amount
 
                     if ($(event.target).data('value') === correctAnswer) {
 
@@ -444,6 +461,7 @@ function beginGame() {
                         }
                         userPointsElement.text(userPoints);
                     }
+
                     // Change Button Color to Correct
                     else if($(event.target).data('value') === incorrectAnswers || $(event.target).data('value') === incorrectAnswers2 || $(event.target).data('value') === incorrectAnswers3) {
 
@@ -453,15 +471,19 @@ function beginGame() {
                         // Play Wrong Sound
                         wrongSound.play();
                     }
+
                 })
+
             })
 
             // Hide other boxes
             if (i < questions.length-1) {
                 var newi = i + 1;
                 questionBox[newi].classList.toggle('hide');
-            } 
+            }
+
         }
+        
     })
 
 // Hide High Scores if array is empty

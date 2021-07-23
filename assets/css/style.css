@@ -659,7 +659,7 @@ background: var(--neutral);
     border: 3px solid var(--neutral);
     background: transparent !important;
     color: #fff;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: .1em;
     text-transform: uppercase;
     font-size: 0.7em;
