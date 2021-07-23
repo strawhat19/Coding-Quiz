@@ -7,7 +7,7 @@ console.log('Coding Quiz!');
 var userPoints = 0; // User Starting Points
 var maxHighScores = 5; // Max High Scores to Store
 var nextQuestionTimer = 750; // Set the Time in Milliseconds of When the Next Question is Cycled
-var showScoresAnimationTimer = 500; // Sets the Time in Milliseconds of When the Show Scores Animation Plays
+var showScoresAnimationTimer = 750; // Sets the Time in Milliseconds of When the Show Scores Animation Plays
 
 // Creating Dynamic Timers
 var timerRange = $('<input>');
@@ -83,9 +83,9 @@ var questions = [
     {
         question: 'Which of these is a valid way to declare a function?',
         index: 'Question 4 out of 10',
-        choices: ['func =>','= function','f(x)','=>'],
+        choices: ['f(x)','=>','fnc =>','= function?'],
         answer: '=>',
-        incorrect: ['func =>','= function','f(x)']
+        incorrect: ['f(x)','fnc =>','= function?']
     },
     {
         question: 'What does the "O" in DOM and JSON stand for?',
@@ -187,19 +187,13 @@ if (highScores.length > 0) {
     var clearButton = $('<button>');
     clearButton.html('Clear Scores');
     clearButton.on('click', function(event) {
-        $(event.target).parent().children().remove();
-        $(event.target).remove();
         localStorage.removeItem('High Scores');
-        localStorage.clear();
-        var noScoresMessage = $('<div>');
-        noScoresMessage.html('No Scores to Show Yet!');
-        setTimeout(function() {
-            noScoresMessage.fadeIn(1000);
-        }, 300);
-        showScoresElement.append(noScoresMessage);
+        $(event.target).parent().children().fadeOut();
+        $(event.target).parent().children().html('Scores Cleared... Reinitializing ' + '<div style="color: var(--neutral)" class="spinner-border" role="status"><span class="sr-only"> Loading...</span></div>');
+        // Best Practice to Refresh the Page after Clearing Local Storage
         setTimeout(function() {
             location.reload(true);
-        }, 100);
+        }, 100); // After Clearing Scores wait 100ms then Refresh Page
         return;
     })
 
@@ -286,6 +280,7 @@ function beginGame() {
                 // Setting Item in Local Storage
                 localStorage.setItem('High Scores', JSON.stringify(highScores));
 
+
                 // Reload Game After Score is Stored
                 setTimeout(function reloadGame() {
                     location.reload(true);
@@ -364,6 +359,8 @@ function beginGame() {
         scoreEntryForm.on('submit', function(event) {
             event.preventDefault();
             clearInterval(updateTime);
+            // Making Sure The Show Scores Animation Doesnt Play on Score Register
+            showScoresElement.removeClass('fadeInOut');
             $(event.target).parent().parent().parent().addClass('endScreen');
             $(event.target).parent().parent().parent().siblings().remove();
             var userName = $(event.target).children().val();
@@ -483,7 +480,7 @@ function beginGame() {
             }
 
         }
-        
+
     })
 
 // Hide High Scores if array is empty
