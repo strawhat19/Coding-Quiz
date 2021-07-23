@@ -1,6 +1,6 @@
 # Code Quiz
 
-![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./assets/images/Coding-Quiz.png)
+![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./assets/images/Official-Code-Quiz-Application.png)
 
 ## Your Task
 
