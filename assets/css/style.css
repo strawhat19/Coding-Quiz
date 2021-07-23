@@ -153,9 +153,13 @@ body {
     min-height: 100vh;
     justify-content: center;
     align-content: center;
+    /* Dark Simple BG */
     background: var(--neutralDark);
     /* Bars on Background */
     /* background: repeating-linear-gradient(90deg, var(--neutral) 0 2px, var(--neutralDark) 0 230px); */
+
+    /* Background Repeating Radial Gradient */
+    background-image: radial-gradient(circle at center center, rgb(167, 204, 221) 0%, rgb(167, 204, 221) 7%,rgb(141, 193, 218) 7%, rgb(141, 193, 218) 14%,rgb(115, 182, 215) 14%, rgb(115, 182, 215) 21%,rgb(90, 172, 213) 21%, rgb(90, 172, 213) 28%,rgb(64, 161, 210) 28%, rgb(64, 161, 210) 35%,rgb(38, 150, 207) 35%, rgb(38, 150, 207) 42%,transparent 42%, transparent 100%),radial-gradient(circle at center left, rgb(167, 204, 221) 0%, rgb(167, 204, 221) 3%,rgb(141, 193, 218) 3%, rgb(141, 193, 218) 7%,rgb(115, 182, 215) 7%, rgb(115, 182, 215) 11%,rgb(90, 172, 213) 11%, rgb(90, 172, 213) 15%,rgb(64, 161, 210) 15%, rgb(64, 161, 210) 19%,rgb(38, 150, 207) 19%, rgb(38, 150, 207) 23%,transparent 23%, transparent 100%),radial-gradient(circle at center right, rgb(167, 204, 221) 0%, rgb(167, 204, 221) 3%,rgb(141, 193, 218) 3%, rgb(141, 193, 218) 7%,rgb(115, 182, 215) 7%, rgb(115, 182, 215) 11%,rgb(90, 172, 213) 11%, rgb(90, 172, 213) 15%,rgb(64, 161, 210) 15%, rgb(64, 161, 210) 19%,rgb(38, 150, 207) 19%, rgb(38, 150, 207) 23%,rgb(12, 139, 204) 23%, rgb(12, 139, 204) 100%);
 }
 
 a {
@@ -240,7 +244,8 @@ main {
     justify-content: center;
     grid-gap: 50px;
     align-items: center;
-    background: linear-gradient(var(--neutralDarkGlass),var(--neutralDarkGlass)),url(/assets/images/Vectorquestion.svg);
+    /* Background Question Logo */
+    /* background: linear-gradient(var(--neutralDarkGlass),var(--neutralDarkGlass)),url(/assets/images/Vectorquestion.svg); */
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 50em;
